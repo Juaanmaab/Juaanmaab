@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Página de Inicio</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+            line-height: 1.6;
+        }
+        header {
+            background-color: #333;
+            color: white;
+            padding: 1em;
+            text-align: center;
+        }
+        nav {
+            background-color: #333;
+            color: white;
+            padding: 2px;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+        }
+        nav a {
+            color: white;
+            text-decoration: none;
+            margin: 0 10px;
+            padding: 2px;
+            display: inline-block;
+        }
+        section {
+            padding: 20px;
+            margin: 20px;
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        h2 {
+            color: #333;
+        }
+        #noticias-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+        }
+        .noticia {
+            width: 48%;
+            margin-bottom: 20px;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+        }
+        footer {
+            background-color: #333;
+            color: white;
+            padding: 30px;
+            text-align: center;
+            position: relative;
+            bottom: 0;
+            width: 100%;
+        }
+        footer a {
+            color: white;
+            text-decoration: none;
+            margin: 0 10px;
+            padding: 2px;
+            display: inline-block;
+        }
+
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>El Deportista</h1>
+    </header>
+
+    <nav>
+        <a href="#inicio">Inicio</a>
+        <a href="#seccion1">Sección 1</a>
+        <a href="#seccion2">Sección 2</a>
+        <a href="#noticias">Noticias</a>
+    </nav>
+
+    <section id="inicio">
+        <h2>Portada</h2>
+        <p>La pagina de Deportes que te da la información del dia a dia al alcance de todos.</p>
+    </section>
+
+    <section id="seccion1">
+        <h2>Sección 1</h2>
+        <p>Ultimos premios y posiciones</p>
+    </section>
+
+    <section id="seccion2">
+        <h2>Sección 2</h2>
+        <p>Lo mas buscado</p>
+    </section>
+
+    <section id="noticias">
+        <h2>Noticias</h2>
+        <div id="noticias-container"></div>
+    </section>
+
+    <footer>
+        <p>Redes Sociales</p>
+            <a href="#" target="_blank">Facebook</a> |
+            <a href="#" target="_blank">Twitter</a> |
+            <a href="#" target="_blank">Instagram</a>
+        <p>Dirección de la Empresa: C. de Alberto Aguilera,14, Madrid</p>
+        <p>Aviso Legal: Este sitio web es solo con fines informativos. Consulta a un profesional legal para obtener asesoramiento específico.</p>
+    </footer>
+
+    <script>
+        
+        fetch('noticias.json')
+            .then(response => response.json())
+            .then(data => {
+                const noticiasContainer = document.getElementById('noticias-container');
+
+                data.forEach(noticia => {
+                    const noticiaElement = document.createElement('div');
+                    noticiaElement.classList.add('noticia');
+                    noticiaElement.innerHTML = `
+                        <h3>${noticia.titulo}</h3>
+                        <p>${noticia.descripcion}</p>
+                        <p><strong>Fecha:</strong> ${noticia.fecha}</p>
+                    `;
+                    noticiasContainer.appendChild(noticiaElement);
+                });
+            })
+            .catch(error => console.error('Error al cargar noticias:', error));
+    </script>
+
+</body>
+</html>
